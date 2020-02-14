@@ -26,9 +26,9 @@ int print_manual(FILE *file, char const *argv0) {
 
 static int print(register_type_t const *data, size_t n_data) {
 #if (defined READ_COILS) || (defined READ_INPUT_BITS)
-  char const *format_string = use_hex ? ("%" PRIx16 "\t") : ("%" PRIu16 "\t");
-#elif (defined READ_HOLDING_REGISTERS) || (defined READ_INPUT_REGISTERS)
   char const *format_string = "%d\t";
+#elif (defined READ_HOLDING_REGISTERS) || (defined READ_INPUT_REGISTERS)
+  char const *format_string = use_hex ? ("%" PRIx16 "\t") : ("%" PRIu16 "\t");
 #endif
   for (size_t i = 0; i < n_data; ++i) {
     int result = printf(format_string, data[i]);
