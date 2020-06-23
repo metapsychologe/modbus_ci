@@ -102,16 +102,20 @@ static void read_arguments(int argc, char *argv[]) {
   } while (getopt_result >= 0);
 }
 
-static int print(register_type_t const *data, size_t n_data) {
+static int print(register_type_t const data[static 1], size_t n_data) {
 #if (defined READ_COILS) || (defined READ_INPUT_BITS)
-  char const *format_string = "%d\t";
+  static char const format_string[] = "%d";
 #elif (defined READ_HOLDING_REGISTERS) || (defined READ_INPUT_REGISTERS)
-  char const *format_string = use_hex ? ("%" PRIx16 "\t") : ("%" PRIu16 "\t");
+  char const * const format_string = use_hex ? ("%" PRIx16) : ("%" PRIu16);
 #endif
-  for (size_t i = 0; i < n_data; ++i) {
+  for (size_t i = 0; i < (n_data - 1); ++i) {
     int result = printf(format_string, data[i]);
     if (result <= 0) return EXIT_FAILURE;
+    fputc('\t', stdout);
   }
+
+  int result = printf(format_string, data[n_data - 1]);
+  fputc('\n', stdout);
   return EXIT_SUCCESS;
 }
 
