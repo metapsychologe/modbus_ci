@@ -9,11 +9,11 @@ add_executable(modbus_read_coils
 target_link_libraries(modbus_read_coils modbus)
 target_compile_definitions(modbus_read_coils PUBLIC READ_COILS)
 
-add_executable(modbus_read_input_bits
+add_executable(modbus_read_discrete_inputs
   "read.c"
   "modbus_cli.c")
-target_link_libraries(modbus_read_input_bits modbus)
-target_compile_definitions(modbus_read_input_bits PUBLIC READ_INPUT_BITS)
+target_link_libraries(modbus_read_discrete_inputs modbus)
+target_compile_definitions(modbus_read_discrete_inputs PUBLIC READ_INPUT_BITS)
 
 add_executable(modbus_read_registers
   "read.c"
