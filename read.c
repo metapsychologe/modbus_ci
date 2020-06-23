@@ -152,6 +152,11 @@ static int handle_request(modbus_t *ctx) {
 }
 
 int main(int argc, char *argv[]) {
+  if(argc <= 1) {
+    (void)print_manual(stderr, argv[0]);
+    exit(EXIT_FAILURE);
+  }
+
   read_arguments(argc, argv);
 
   if (verbose_mode) {
