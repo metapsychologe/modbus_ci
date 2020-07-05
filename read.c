@@ -106,16 +106,16 @@ static int print(register_type_t const data[static 1], size_t n_data) {
 #if (defined READ_COILS) || (defined READ_INPUT_BITS)
   static char const format_string[] = "%d";
 #elif (defined READ_HOLDING_REGISTERS) || (defined READ_INPUT_REGISTERS)
-  char const * const format_string = use_hex ? ("%" PRIx16) : ("%" PRIu16);
+  char const *const format_string = use_hex ? ("%" PRIx16) : ("%" PRIu16);
 #endif
   for (size_t i = 0; i < (n_data - 1); ++i) {
     int result = printf(format_string, data[i]);
     if (result <= 0) return EXIT_FAILURE;
-    fputc('\t', stdout);
+    (void)fputc('\t', stdout);
   }
 
-  int result = printf(format_string, data[n_data - 1]);
-  fputc('\n', stdout);
+  (void)printf(format_string, data[n_data - 1]);
+  (void)fputc('\n', stdout);
   return EXIT_SUCCESS;
 }
 
@@ -156,7 +156,7 @@ static int handle_request(modbus_t *ctx) {
 }
 
 int main(int argc, char *argv[]) {
-  if(argc <= 1) {
+  if (argc <= 1) {
     (void)print_manual(stderr, argv[0]);
     exit(EXIT_FAILURE);
   }
